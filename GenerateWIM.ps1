@@ -33,7 +33,7 @@ Write-Host $isAdmin
 if ($isAdmin -eq $true) {
     # Connectivity check
     Write-Host "Checking connectivity" -ForegroundColor Yellow
-    $domains = @("https://chocolatey.org", "https://microsoft.com", "https://github.com")
+    $domains = @("https://chocolatey.org", "https://github.com")
     foreach ($domain in $domains) {
         try {
             $response = Invoke-WebRequest -Uri $domain -UseBasicParsing -TimeoutSec 10
