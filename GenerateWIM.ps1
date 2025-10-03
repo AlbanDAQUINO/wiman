@@ -27,8 +27,8 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 . ".\inc\FetchLatestOpenSSH.ps1"
 
 # Header start here !
-Write-Host "WIMan - Foreman iPXE Image All-In-One Script 🐇" -ForegroundColor Yellow
-Write-Host "----- - ----------------------------------------" -ForegroundColor Yellow
+Write-Host "WIMan - Foreman Windows Image Generator All-In-One Script 🐇" -ForegroundColor Yellow
+Write-Host "----- - -----------------------------------------------------" -ForegroundColor Yellow
 
 # MAIN starts here!
 $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
@@ -37,25 +37,25 @@ Write-Host $isAdmin
 if ($isAdmin -eq $true) {
     # Connectivity check
     Write-Host "Checking connectivity" -ForegroundColor Yellow
-    $domains = @("https://chocolatey.org", "https://github.com")
-    foreach ($domain in $domains) {
+    $urls = @("https://chocolatey.org", "https://github.com")
+    foreach ($url in $urls) {
         try {
             $response = Invoke-WebRequest -Uri $domain -UseBasicParsing -TimeoutSec 10
             if ($response.StatusCode -ne 200) {
                 throw "Unexpected status code $($response.StatusCode)"
             }
             else {
-                Write-Host "URL $domain is accessible."
+                Write-Host "URL $url is accessible."
             }
         }
         catch {
-            Write-Host "Error: Cannot reach $domain. Please check firewall/network." -ForegroundColor Red
+            Write-Host "Error: Cannot reach $url. Please check firewall rules/network connectivity." -ForegroundColor Red
             Write-Host "Or manually place the required files in the '$downloadsfolder' folder."
             exit 1
         }
     }
 
-    # Check if temp folder exists and remove it
+    # Check if temp folder exists and clean it
     if (Test-Path $tempfolder) {
         Write-Host "Cleaning temporary files" -ForegroundColor Yellow
         Remove-Item -Recurse -Force $tempfolder

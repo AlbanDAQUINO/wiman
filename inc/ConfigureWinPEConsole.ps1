@@ -7,7 +7,7 @@ function ConfigureWinPEConsole($wimFile) {
     $result += $?
     # Get the localized Administrators group name from its SID
     $adminGroup = (New-Object System.Security.Principal.SecurityIdentifier("S-1-5-32-544")).Translate([System.Security.Principal.NTAccount]).Value
-    # Create the access rule with the correct name
+    # Create the access rule with the localized name
     $Ar = New-Object system.security.accesscontrol.filesystemaccessrule($adminGroup, "FullControl", "Allow")
     $result += $?
     $Acl.SetAccessRule($Ar)
