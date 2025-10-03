@@ -28,12 +28,12 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 
 # MAIN starts here!
 $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-Write-Host "Checking if the shell has priviledge" -ForegroundColor Yellow
+Write-Host "Checking if the shell has privilege " -ForegroundColor Yellow -NoNewline
 Write-Host $isAdmin
 if ($isAdmin -eq $true) {
     # Connectivity check
     Write-Host "Checking connectivity" -ForegroundColor Yellow
-    $domains = @("https://microsoft.com", "https://github.com")
+    $domains = @("https://chocolatey.org", "https://microsoft.com", "https://github.com")
     foreach ($domain in $domains) {
         try {
             $response = Invoke-WebRequest -Uri $domain -UseBasicParsing -TimeoutSec 10
@@ -45,7 +45,7 @@ if ($isAdmin -eq $true) {
             }
         }
         catch {
-            Write-Host "ERROR: Cannot reach $domain. Please check firewall/network." -ForegroundColor Red
+            Write-Host "Error: Cannot reach $domain. Please check firewall/network." -ForegroundColor Red
             Write-Host "Or manually place the required files in the '$downloadsfolder' folder."
             exit 1
         }
