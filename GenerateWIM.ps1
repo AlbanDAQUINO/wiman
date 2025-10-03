@@ -61,13 +61,16 @@ if ($isAdmin -eq $true) {
     # Mark the folder as hidden
     $folder.Attributes += "HIDDEN"
 
+    Write-Host "Checking for WAIK installations" -ForegroundColor Yellow
     DetectAndInstallWAIK
+
+    Write-Host "Checking for OpenSSH latest binaries" -ForegroundColor Yellow
     DownloadLatestOpenSSHServer
 
+    Write-Host "Building images ..." -ForegroundColor Cyan
     $list_isos = Get-ChildItem -Path "$sourcesfolder\*\*\*.iso"
-
     foreach ($iso in $list_isos) {
-        Write-Host "Building media for " $iso.Directory.Name "[" $iso.Directory.Parent.Name "]"
+        Write-Host "Building media for" $iso.Directory.Name "[" $iso.Directory.Parent.Name "]"
         ExtractISO $iso $tempfolder $overwrite
 
         DetectWindowsName $iso
