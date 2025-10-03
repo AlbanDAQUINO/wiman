@@ -1,3 +1,4 @@
-#  WIMBoot
+# WIMBoot
+
 Place your wimboot file here
-Link: https://github.com/ipxe/wimboot/releases/latest/download/wimboot
+[Download wimboot](https://github.com/ipxe/wimboot/releases/latest/download/wimboot)

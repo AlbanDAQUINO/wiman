@@ -40,7 +40,7 @@ if ($isAdmin -eq $true) {
     $urls = @("https://chocolatey.org", "https://github.com")
     foreach ($url in $urls) {
         try {
-            $response = Invoke-WebRequest -Uri $domain -UseBasicParsing -TimeoutSec 10
+            $response = Invoke-WebRequest -Uri $url -UseBasicParsing -TimeoutSec 10
             if ($response.StatusCode -ne 200) {
                 throw "Unexpected status code $($response.StatusCode)"
             }
