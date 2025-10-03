@@ -5,7 +5,10 @@ function ConfigureWinPEConsole($wimFile) {
     $Acl = Get-Acl ("${wimFile}_mount\windows\system32\winpe.jpg")
     Log "DEBUG" "ACL for '$($wimFile)_mount\windows\system32\winpe.jpg' is $Acl"
     $result += $?
-    $Ar = New-Object  system.security.accesscontrol.filesystemaccessrule("Administrators","FullControl","Allow")
+    # Get the localized Administrators group name from its SID
+    $adminGroup = (New-Object System.Security.Principal.SecurityIdentifier("S-1-5-32-544")).Translate([System.Security.Principal.NTAccount]).Value
+    # Create the access rule with the correct name
+    $Ar = New-Object system.security.accesscontrol.filesystemaccessrule($adminGroup, "FullControl", "Allow")
     $result += $?
     $Acl.SetAccessRule($Ar)
     $result += $?
@@ -13,7 +16,8 @@ function ConfigureWinPEConsole($wimFile) {
 
     if ($? -eq $true) {
         Log "INFO" "Successfully set ACL for '$($wimFile)_mount\windows\system32\winpe.jpg' to $Acl"
-    } else {
+    }
+    else {
         Log "ERROR" "Failed to set ACL for '$($wimFile)_mount\windows\system32\winpe.jpg' to $Acl"
     }
 
@@ -35,7 +39,8 @@ function ConfigureWinPEConsole($wimFile) {
     if ($result -eq 9) {
         Log "INFO" "Successfully configured WinPE Console."
         return $true
-    } else {
+    }
+    else {
         Log "ERROR" "Failed to configure WinPE Console!"
         return $false
     }
