@@ -26,6 +26,10 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 . ".\inc\SetWinPETargetPath.ps1"
 . ".\inc\FetchLatestOpenSSH.ps1"
 
+# Header start here !
+Write-Host "WIMan - Foreman iPXE Image All-In-One Script 🐇" -ForegroundColor Yellow
+Write-Host "----- - ----------------------------------------" -ForegroundColor Yellow
+
 # MAIN starts here!
 $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 Write-Host "Checking if the shell has privilege " -ForegroundColor Yellow -NoNewline

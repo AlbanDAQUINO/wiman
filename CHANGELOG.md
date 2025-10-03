@@ -4,7 +4,8 @@
 ### Added
  - Numerous console returns to clarify the steps
    Network detection to stop the script from running if it can't access the necessary urls
-   Localized builtin administrator group for acl 
+   Localized builtin administrator group for acl
+   A cute header
 
 ## [0.0.4] - 2021-07-01
 ### Added
